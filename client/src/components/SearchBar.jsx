@@ -1,0 +1,33 @@
+import React from 'react'
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {getNameVideogames} from '../redux/actions/index.js'
+
+
+const SearchBar = ({setCurrentPage}) => {
+    
+    const dispatch = useDispatch();
+    const {name, setName} = useState(name);
+
+    const hanldeInputChange= (e)=>{
+        e.preventDefault();
+        setName(e.target.value)
+    }
+    const handleSubmit= (e)=>{
+        e.preventDefault()
+        dispatch(getNameVideogames(name));
+        setCurrentPage(1)
+    }
+  
+    return (
+    <div className='container'>
+        <div className='search'>
+        <input className='searchInput' type="text" placeholder='search' onChange={(e)=>hanldeInputChange(e)} />    
+        <button className='searchButton' type='submit' onClick={(e)=>handleSubmit(e)} 
+        disabled={name.length ? false : true} >search</button>
+        </div>
+    </div>
+  )
+}
+
+export default SearchBar
